@@ -1,10 +1,11 @@
+const nanoid = require('nanoid')
 const { Schema, model } = require('mongoose')
 
 const schema = new Schema ({
-    id: {
-        type: Int,
-        required: true
-    },
+    _id: {
+        type: String,
+        default: () => nanoid()
+      },
     url: {
         type: String,
         required: true
@@ -16,4 +17,4 @@ const schema = new Schema ({
     }
 })
 
-module.exports = model('link', schema);
+module.exports = model('Link', schema);

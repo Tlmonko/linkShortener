@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 8080;
 const app = express()
 
 app.use(routes);
+app.use(express.urlencoded({extended: true}))
 
 async function start() {
     try {
