@@ -1,17 +1,25 @@
 const Router  = require('express')
 const Link = require('../models/link')
+const bodyParser = require('body-parser')
+const ObjectID = require('mongodb').ObjectID;
 const router = Router()
 
-router.post('/shorten', (request, response) => {
-    let url = request.param('urlToShorten')
+const jsonParser = bodyParser.json()
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+
+router.post('/shorten', urlencodedParser, async (req, res) => {
+    let longUrl = req.body.urlToShorten
     const link = new Link({
-        url: url
+        url: longUrl
     })
-    await link.save();
+    await link.save()
+    res.send({
+        "status": "Created",
+        "shortenedUrl": `127.0.0.1:8000/${link._id}`
+    })
 })
 
-router.get('/', async (request, response) => {
-    const links = await Link.find({})
-})
+router.get('/:id', jsonParser, async (req, res) => {})
 
 module.exports = router

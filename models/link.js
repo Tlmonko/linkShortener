@@ -1,17 +1,17 @@
-const nanoid = require('nanoid')
+const { nanoid } = require('nanoid')
 const { Schema, model } = require('mongoose')
 
 const schema = new Schema ({
     _id: {
         type: String,
-        default: () => nanoid()
+        default: () => nanoid(12)
       },
     url: {
         type: String,
         required: true
     },
     countOfViews: {
-        type: int,
+        type: Number,
         required: true,
         default: 0
     }
