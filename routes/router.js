@@ -23,7 +23,11 @@ router.get('/:id', jsonParser, async (req, res) => {
 	const id = req.params.id;
 	const link = await Link.findOne({'_id': id})
 	link.plusView()
-	res.redirect(`http://${link.url}`)
+	if (link.url.startsWith('http://') || link.url.startsWith('https://')) {
+		res.redirect(link.url)
+	} else {
+		res.redirect(`http://${link.url}`)
+	}
 })
 
 router.get('/:id/views', jsonParser, async (req, res) => {
