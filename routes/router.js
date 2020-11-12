@@ -20,6 +20,12 @@ router.post('/shorten', urlencodedParser, async (req, res) => {
     })
 })
 
-router.get('/:id', jsonParser, async (req, res) => {})
+router.get('/:id', jsonParser, async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    const link = await Link.findOne({'_id': id})
+    link.countOfViews += 1
+    res.redirect(`http://${link.url}`)
+})
 
 module.exports = router
