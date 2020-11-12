@@ -17,4 +17,9 @@ const schema = new Schema ({
     }
 })
 
+schema.methods.plusView = async function plusView() {
+    this.countOfViews += 1
+	await this.save()
+}
+
 module.exports = model('Link', schema);
